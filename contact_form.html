@@ -1,0 +1,157 @@
+<html>
+
+<style>
+
+body
+{
+ text-align:center;
+ width:100%;
+ margin:0 auto;
+ padding:0px;
+ font-family:helvetica;
+ background-color:black;
+}
+#wrapper
+{
+ text-align:center;
+ margin:0 auto;
+ padding:0px;
+ width:995px;
+}
+#form
+{
+ background-color:white;
+ width:450px;
+ padding:20px;
+ box-sizing:border-box;
+ margin-left:270px;
+ margin-top:150px;
+ box-shadow:0px 0px 10px 0px #3B170B;
+}
+#form h1
+{
+ text-align:center;
+ margin:0px;
+ color:#FA8258;
+ font-size:30px;
+ margin-bottom:40px;
+ text-decoration:underline;
+}
+#form td
+{
+ margin:10px;
+ color:#FA8258;
+ font-weight:bold;
+}
+#form input[type="text"]
+{
+ width:250px;
+ height:35px;
+ padding-left:5px;
+}
+#form textarea
+{
+ width:250px;
+ height:70px;
+ padding-left:5px;
+}
+#form input[type="submit"]
+{
+ background-color:#B43104;
+ color:white;
+ border:none;
+ border-bottom:5px solid #8A2908;
+ width:150px;
+ height:45px;
+ border-radius:2px;
+}
+#form input[type="reset"]
+{
+ background-color:#B43104;
+ color:white;
+ border:none;
+ border-bottom:5px solid #8A2908;
+ width:150px;
+ height:45px;
+ border-radius:2px;
+}
+
+
+
+</style>
+
+
+
+
+<head>
+<link href="form_style.css" type="text/css" rel="stylesheet"/>
+
+</head>
+<body>
+<div id="wrapper">
+
+<div id="form">
+<h1>Admin Interface</h1>
+<form method="post" action="store_detail.php" onsubmit="return save_detail();">
+<table align=center>
+ <tr>
+  <td>Size(length): </td><td><input type="text" id="length" name="length" placeholder="enter length (in feet)"></td>
+ </tr>
+ <tr>
+  <td>Size(breadth): </td><td><input type="text" id="breadth" name="breadth" placeholder="enter breadth (in feet)"></td>
+ </tr>
+ <tr>
+  <td>Thickness: </td><td><input type="text" id="thickness" name="thickness" placeholder="enter thickness (in inches)"></td>
+ </tr>
+ <tr>
+  <td>Density: </td><td><input type="text" id="density" name="density" placeholder="enter density here"></td>
+ </tr>
+</table>
+<p><input type="submit" name="submit" value="Add Dimensions"></p>
+<p><input type="reset" name="reset" value="Reset"></p>
+</form>
+</div>
+
+</div>
+<script   
+	src="https://code.jquery.com/jquery-3.3.1.min.js"  
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+function save_detail()
+{
+ var length=$("#length").val();
+ var breadth=$("#breadth").val();
+ var thickness=$("#thickness").val();
+ var density=$("#density").val();
+ if(length!="" && breadth!="" && thickness!="" && density!="")
+ {
+  $.ajax
+  ({
+   type:'post',
+   url:'store_detail.php',
+   data:{
+    submit_contact:"submit_contact",
+    length:length,
+    breadth:breadth,
+    thickness:thickness,
+    density:density
+   },
+   success:function(response) {
+    if(response=="submitted")
+    {
+     document.getElementById("form").innerHTML="Data has been saved !";
+    }
+   }
+  });
+ }
+ else
+ {
+  alert("Please Fill All The Details");
+ }
+ 
+ return false;
+}
+</script>
+</body>
+</html>
